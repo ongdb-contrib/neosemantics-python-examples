@@ -36,7 +36,7 @@ def load_json_ld(tx, json_ld_data):
 
 
 uri = "bolt://localhost:7687"
-driver = GraphDatabase.driver(uri, auth=("neo4j", "neo"))
+driver = GraphDatabase.driver(uri, auth=("ongdb", "123456"))
 
 rss_entries_as_json_ld, entry_url_list = get_rss('https://www.theguardian.com/uk/rss')
 

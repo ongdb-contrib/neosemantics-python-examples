@@ -10,7 +10,7 @@ cypher = 'MATCH (nineties:Movie)-[rel]-(pers:Person) ' \
 
 payload = { 'cypher' : cypher , 'format' : 'Turtle' }
 
-response = requests.post(url, auth=('neo4j', 'neo'), data = json.dumps(payload))
+response = requests.post(url, auth=('ongdb', '123456'), data = json.dumps(payload))
 response.raise_for_status()  # raise an error on unsuccessful status codes
 
 g=rdflib.Graph()

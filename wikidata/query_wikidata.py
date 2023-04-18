@@ -50,7 +50,7 @@ def import_continents(tx, country_uri ):
 
 
 uri = "bolt://localhost:7687"
-driver = GraphDatabase.driver(uri, auth=("neo4j", "neo"))
+driver = GraphDatabase.driver(uri, auth=("ongdb", "123456"))
 
 with driver.session() as session:
     #load countries

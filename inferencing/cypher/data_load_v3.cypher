@@ -1,3 +1,6 @@
+// Resource Index
+CREATE INDEX ON :Resource(uri);
+
 // Index creation
 CREATE INDEX ON :Item(itemId);
 CREATE INDEX ON :Department(deptName);
@@ -54,8 +57,8 @@ UNWIND ['es','en','fr'] AS lang
 MATCH (w:Class { name: 'SyntheticFibre'})<-[:SCO*]-(woolVariant)
 RETURN lang, COLLECT(semantics.getLangValue(lang,woolVariant.label)) as syntheticMaterials
 
-//fleeces by Columbia
-MATCH (:Category { catName: "Fleeces"})<-[:IN_CAT]-(i:Item)-[:BY]->(:Brand { brandName: "Columbia"})
+//fleeces by Berghaus
+MATCH (:Category { catName: "Fleeces"})<-[:IN_CAT]-(i:Item)-[:BY]->(:Brand { brandName: "Berghaus"})
 RETURN i.itemId as id, i.itemName as name, i.url as url, i.composition as composition
 
 //Brands producing hoodies
@@ -71,7 +74,7 @@ return product.itemName AS product, b.brandName AS brand, product.composition AS
 
 //Vegan trainers
 MATCH (:Category {catName:"Trainers"})<-[:IN_CAT]-(item:Item)-[:BY]->(b:Brand), (ab:Class { name: "AnimalBasedMaterial"})
-WHERE b.brandName IN ["Converse","New Balance","Nike"]
+WHERE b.brandName IN ["Converse","New Balance","Nike","ASICS"]
 AND NOT semantics.inference.inCategory(item,ab,{ inCatRel: "CONTAINS" })
 RETURN item.url, item.itemName, item.composition ;
 

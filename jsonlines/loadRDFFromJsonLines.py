@@ -1,5 +1,6 @@
 from zipfile import ZipFile
 from neo4j import GraphDatabase
+# pip install neo4j-driver==1.7
 
 cypher_neosemantics = 'UNWIND  $payload as rdf_fragment  \
       CALL semantics.importRDFSnippet(rdf_fragment,"JSON-LD")  \
@@ -20,7 +21,7 @@ def load_batch(tx, batch):
               ', triplesParsed: ', record["totalParsed"])
 
 
-driver = GraphDatabase.driver(uri, auth=("neo4j", "neo"))
+driver = GraphDatabase.driver(uri, auth=("ongdb", "123456"))
 
 with driver.session() as session:
     with ZipFile(jsonl_file_name + '.zip', 'r') as zip:
