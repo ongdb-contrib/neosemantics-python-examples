@@ -1,3 +1,4 @@
+// ongdb-enterprise-1.0.x\neosemantics-1.0.x
 // Resource Index
 CREATE INDEX ON :Resource(uri);
 
