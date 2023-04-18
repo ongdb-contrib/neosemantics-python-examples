@@ -1,8 +1,9 @@
 // ongdb-enterprise-1.0.x\neosemantics-1.0.x
-// Resource Index
+// Resource Index | 导入RDF时需要给`Resource`节点的`uri`创建索引
 CREATE INDEX ON :Resource(uri);
 
 // Index creation
+// 加载数据时为节点创建索引可以提高检索性能
 CREATE INDEX ON :Item(itemId);
 CREATE INDEX ON :Department(deptName);
 CREATE INDEX ON :Category(catName);
@@ -13,6 +14,7 @@ CREATE INDEX ON :Brand(brandName);
 CALL semantics.importOntology("http://www.nsmntx.org/2019/10/clothingMaterials","Turtle", { keepLangTag: true, handleMultival: 'ARRAY'});
 
 // Load data
+// 加载数据
 LOAD CSV WITH HEADERS FROM "file:///next_products.csv"  AS row
 MERGE (b:Brand { brandName : row.brandName })
 MERGE (dep:Department { deptName: row.itemDepartment })
@@ -82,10 +84,4 @@ MATCH (:Category {catName:"Trainers"})<-[:IN_CAT]-(item:Item)-[:BY]->(b:Brand), 
 WHERE b.brandName IN ["Converse","New Balance","Nike","ASICS"]
 AND NOT semantics.inference.inCategory(item,ab,{ inCatRel: "CONTAINS" })
 RETURN item.url, item.itemName, item.composition ;
-
-
-
-
-
-
 
